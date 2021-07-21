@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {FnParam} from "@angular/compiler/src/output/output_ast";
+import {WeatherService} from "./core/service/weather.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,13 @@ import {FnParam} from "@angular/compiler/src/output/output_ast";
 export class AppComponent {
   title = 'ui';
 
+  constructor(private weatherService: WeatherService) {
+  }
+
   getWeatherData(data: any) {
-    console.log(data)
+    const cityName = data.value['cityName'];
+    const date = data.value['date'];
+
+    this.weatherService.getWeatherByCityAndDate(cityName, date);
   }
 }
