@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>City</th>
+    <th>Country Code</th>
+    <th>Temperature</th>
+    <th>Clouds</th>
+    <th>Rain</th>
+  </tr>
+  <tr *ngFor="let weatherDay of weatherDays">
+    <td>{{weatherDay.city.name}}</td>
+    <td>{{weatherDay.city.country}}</td>
+    <td>{{weatherDay.temperature}}</td>
+    <td>{{weatherDay.clouds}}</td>
+    <td>{{weatherDay.rain}}</td>
+  </tr>
+</table>
