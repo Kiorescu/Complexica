@@ -10,9 +10,12 @@ export class SearchFormComponent implements OnInit {
 
   @Output()
   submitForm: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  clearForm: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
   minDate = new Date();
+
 
   constructor(private fb: FormBuilder) { }
 

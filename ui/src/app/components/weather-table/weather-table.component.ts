@@ -12,15 +12,14 @@ export class WeatherTableComponent implements OnInit, AfterViewInit, OnChanges{
 
   @Input()
   weatherDays: Array<WeatherDay> = new Array<WeatherDay>();
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns = ['city', 'countryCode', 'temperature', 'clouds', 'rain', 'dt']
+  dataSource = new MatTableDataSource(this.weatherDays);
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  dataSource = new MatTableDataSource(this.weatherDays);
-  @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

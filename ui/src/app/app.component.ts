@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {WeatherDataService} from "./core/http/weather-data.service";
 import {ItineraryService} from "./core/http/itinerary.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {WeatherDay} from "./core/model/weather-day.model";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,7 @@ export class AppComponent implements OnInit{
   title = 'ui';
   weatherDays;
   itineraryName;
-  itineraries: any
+  itineraries: any;
 
   constructor(private weatherDataService: WeatherDataService,
               private itineraryService: ItineraryService,
@@ -55,6 +54,10 @@ export class AppComponent implements OnInit{
     this.itineraryService.getById(id).subscribe((result: any) => {
       this.weatherDays = result.data;
     })
+  }
+
+  clear() {
+    this.weatherDays = [];
   }
 
 }

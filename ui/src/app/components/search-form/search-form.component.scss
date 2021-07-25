@@ -4,8 +4,13 @@ form {
 
 .form-field {
   margin: 5px;
+  width: 15%;
 }
 .submit, .field-wrapper {
   display: flex;
   justify-content: center;
+}
+
+.submit button {
+  margin: 5px;
 }

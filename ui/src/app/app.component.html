@@ -18,7 +18,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-search-form (submitForm)="getWeatherData($event)"></app-search-form>
+    <app-search-form (submitForm)="getWeatherData($event)" (clearForm)="clear()"></app-search-form>
     <app-weather-table [weatherDays]="weatherDays"></app-weather-table>
   </mat-sidenav-content>
 </mat-sidenav-container>
