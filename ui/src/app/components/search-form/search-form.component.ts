@@ -3,7 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-search-form',
-  templateUrl: './search-form.component.html'
+  templateUrl: './search-form.component.html',
+  styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit {
 
