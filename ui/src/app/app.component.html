@@ -2,7 +2,7 @@
   <mat-sidenav mode="side" opened>
     <mat-form-field class="form-field" appearance="fill">
       <mat-label>Itinerary name</mat-label>
-      <input matInput placeholder="name" [(ngModel)]="itineraryName">
+      <input matInput placeholder="name" [(ngModel)]="itineraryName" required>
     </mat-form-field>
     <div class="flex-wrapper">
       <button mat-raised-button color="primary" (click)="save()">Save</button>

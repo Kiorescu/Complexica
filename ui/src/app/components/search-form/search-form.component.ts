@@ -12,6 +12,7 @@ export class SearchFormComponent implements OnInit {
   submitForm: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
+  minDate = new Date();
 
   constructor(private fb: FormBuilder) { }
 

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ComponentsModule} from "./components/components.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CoreModule} from "./core/core.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from "@angular/material/core";
@@ -18,6 +18,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSortModule} from "@angular/material/sort";
+import {HttpErrorInterceptor} from "./core/interceptor/http-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,12 @@ import {MatSortModule} from "@angular/material/sort";
   ],
   providers: [
     {provide: 'API_URL', useValue: 'http://localhost:8080'},
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

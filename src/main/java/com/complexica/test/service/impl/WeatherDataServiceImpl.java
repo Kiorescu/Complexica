@@ -1,5 +1,6 @@
 package com.complexica.test.service.impl;
 
+import com.complexica.test.exception.WeatherApiException;
 import com.complexica.test.model.WeatherDataEntity;
 import com.complexica.test.repository.WeatherRepository;
 import com.complexica.test.service.WeatherDataService;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 public class WeatherDataServiceImpl implements WeatherDataService {
 
     private static final String URL = "http://api.openweathermap.org/data/2.5/forecast";
-    //TODO move to properties
     private static final String API_KEY = "db11def693ca5cb6d6bf9cae7d225f2f";
     private final RestTemplate restTemplate;
 
@@ -35,7 +35,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
     }
 
     @Override
-    public List<WeatherDataEntity> findAllByCityAndDate(String city, Long date){
+    public List<WeatherDataEntity> findAllByCityAndDate(String city, Long date) throws WeatherApiException{
 
         LocalDateTime dateTime = ServiceUtil.milliToDateTime(date);
 
@@ -49,7 +49,6 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
                 .queryParam("q", city)
-                //TODO do not hardcode
                 .queryParam("units", "metric")
                 .queryParam("appid", API_KEY);
 
@@ -58,34 +57,31 @@ public class WeatherDataServiceImpl implements WeatherDataService {
         ResponseEntity<Object> response = this.restTemplate.exchange(builder.toUriString(), HttpMethod.GET, request, Object.class);
         Map<String, Object> weatherData = (Map<String, Object>) response.getBody();
         if(weatherData != null) {
-            List<WeatherDataEntity> weatherDataEntities = convertToEntity(weatherData);
-            weatherDataEntities = weatherDataEntities.stream().filter(e -> {
-                LocalDateTime dt = ServiceUtil.secondsToDateTime(e.getDt());
-                return dateTime.getDayOfYear() == dt.getDayOfYear()
-                        && dateTime.getMonth().equals(dt.getMonth())
-                        && dateTime.getYear() == dt.getYear()
-                        && dt.getHour() >= 12
-                        && dt.getHour() <= 18;
+            if(response.getStatusCode() == HttpStatus.OK) {
+                try {
+                    List<WeatherDataEntity> weatherDataEntities = convertToEntity(weatherData);
+                    weatherDataEntities = weatherDataEntities.stream().filter(e -> {
+                        LocalDateTime dt = ServiceUtil.secondsToDateTime(e.getDt());
+                        return dateTime.getDayOfYear() == dt.getDayOfYear()
+                                && dateTime.getMonth().equals(dt.getMonth())
+                                && dateTime.getYear() == dt.getYear()
+                                && dt.getHour() >= 12
+                                && dt.getHour() <= 18;
 
-            }).collect(Collectors.toList());
-            weatherRepository.saveAll(weatherDataEntities);
+                    }).collect(Collectors.toList());
+                    weatherRepository.saveAll(weatherDataEntities);
 
-            return weatherDataEntities;
-        }
-
-        return  null;
-//TODO error handling
-//        if(response.getStatusCode() == HttpStatus.OK) {
-//            try {
-//            }catch (Exception e) {
-//                throw new WeatherApiException("Cannot read response data", e);
-//            }
-//        } else {
-//            throw new WeatherApiException("Response status code " + response.getStatusCode());
-//        }
+                    return weatherDataEntities;
+                }catch (Exception e) {
+                    throw new WeatherApiException(e.getMessage(), e);
+                }
+            } else {
+                throw new WeatherApiException("Response status code " + response.getStatusCode());
+            }
+        } throw new WeatherApiException("No data found");
     }
 
-    private List<WeatherDataEntity> convertToEntity(Map<String, Object> responseObject) {
+    private List<WeatherDataEntity> convertToEntity(Map<String, Object> responseObject) throws WeatherApiException{
         List<WeatherDataEntity> entities = new ArrayList<>();
         Map<String, Object> city = (Map<String, Object>)responseObject.get("city");
         List<Map<String, Object>> weatherHours = (List<Map<String, Object>>) responseObject.get("list");
@@ -98,7 +94,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
                 Map<String, Object> main = (Map<String, Object>) hour.get("main");
                 entity.setTemperature(Double.parseDouble(main.get("temp").toString()));
             }catch (ClassCastException e) {
-                // TODO log error
+                throw new WeatherApiException("Cannot read data", e);
             }
 
             Map<String, Object> clouds = (Map<String, Object>)hour.get("clouds");

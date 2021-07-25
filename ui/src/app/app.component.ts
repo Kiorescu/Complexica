@@ -41,10 +41,14 @@ export class AppComponent implements OnInit{
   }
 
   save() {
-    this.itineraryService.save({name: this.itineraryName, data: this.weatherDays}).subscribe(result => {
-      this.itineraries.push(result);
-      this._snackBar.open("Itinerary saved")
-    })
+    if(!this.itineraryName || this.itineraryName === "") {
+      this._snackBar.open("Please write a name for itinerary")
+    } else {
+      this.itineraryService.save({name: this.itineraryName, data: this.weatherDays}).subscribe(result => {
+        this.itineraries.push(result);
+        this._snackBar.open("Itinerary saved")
+      })
+    }
   }
 
   load(id: number) {
