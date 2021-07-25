@@ -1,6 +1,7 @@
 package com.complexica.test.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="forecast")
@@ -15,6 +16,8 @@ public class WeatherDataEntity {
     private Integer clouds;
     private Double rain;
     private Long dt;
+    @ManyToMany(mappedBy = "data")
+    private Set<ItineraryEntity> itineraries;
 
     public Long getId() {
         return id;

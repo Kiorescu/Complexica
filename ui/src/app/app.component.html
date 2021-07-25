@@ -1,2 +1,15 @@
-<app-search-form (submitForm)="getWeatherData($event)"></app-search-form>
-<app-weather-table [weatherDays]="weatherDays"></app-weather-table>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened>
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Itinerary name</mat-label>
+      <input matInput placeholder="name" [(ngModel)]="itineraryName">
+    </mat-form-field>
+    <div class="flex-wrapper">
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-search-form (submitForm)="getWeatherData($event)"></app-search-form>
+    <app-weather-table [weatherDays]="weatherDays"></app-weather-table>
+  </mat-sidenav-content>
+</mat-sidenav-container>

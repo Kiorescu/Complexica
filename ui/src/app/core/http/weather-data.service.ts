@@ -15,7 +15,6 @@ export class WeatherDataService {
     params = params.append('city', cityName);
     params = params.append('date', date);
 
-    console.log(params);
     return this.http.get(`${this.apiUrl}/weather`, {params: params})
   }
 }

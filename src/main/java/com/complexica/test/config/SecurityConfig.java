@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         security.httpBasic().disable().csrf().disable();
         security.cors();
+        security.headers().frameOptions().disable();
     }
 
     @Bean

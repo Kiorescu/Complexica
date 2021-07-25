@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherDataService} from "./core/http/weather-data.service";
+import {ItineraryService} from "./core/http/itinerary.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,11 @@ import {WeatherDataService} from "./core/http/weather-data.service";
 export class AppComponent implements OnInit{
   title = 'ui';
   weatherDays;
+  itineraryName;
 
-  constructor(private weatherDataService: WeatherDataService) {
+  constructor(private weatherDataService: WeatherDataService,
+              private itineraryService: ItineraryService,
+              protected _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -19,7 +24,6 @@ export class AppComponent implements OnInit{
   getWeatherData(data: any) {
     const cityName = data.value['cityName'];
     const date = new Date(data.value['date']).getTime();
-    console.log(date);
 
     this.weatherDataService.getWeatherData(cityName, date).subscribe(result => {
       if(!this.weatherDays) {
@@ -28,6 +32,12 @@ export class AppComponent implements OnInit{
         result.forEach(i => this.weatherDays.push(i));
         this.weatherDays = [].concat(this.weatherDays);
       }
+    })
+  }
+
+  save() {
+    this.itineraryService.save({name: this.itineraryName, data: this.weatherDays}).subscribe(result => {
+      this._snackBar.open("Itinerary saved")
     })
   }
 }

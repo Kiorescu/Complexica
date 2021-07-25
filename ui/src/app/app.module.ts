@@ -9,6 +9,11 @@ import {HttpClientModule} from "@angular/common/http";
 import {CoreModule} from "./core/core.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -23,9 +28,16 @@ import {MatNativeDateModule} from "@angular/material/core";
     CoreModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSnackBarModule
   ],
-  providers: [{provide: 'API_URL', useValue: 'http://localhost:8080'}],
+  providers: [
+    {provide: 'API_URL', useValue: 'http://localhost:8080'},
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
