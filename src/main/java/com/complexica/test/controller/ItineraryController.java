@@ -4,10 +4,9 @@ import com.complexica.test.model.ItineraryEntity;
 import com.complexica.test.service.ItineraryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/itinerary")
@@ -22,5 +21,10 @@ public class ItineraryController {
     @PostMapping
     public ResponseEntity<ItineraryEntity> saveItinerary(@RequestBody ItineraryEntity itinerary) {
         return new ResponseEntity<>(itineraryService.save(itinerary), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ItineraryEntity>> getAll() {
+        return new ResponseEntity<>(itineraryService.getAll(), HttpStatus.OK);
     }
 }

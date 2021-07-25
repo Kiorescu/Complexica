@@ -7,6 +7,10 @@
     <div class="flex-wrapper">
       <button mat-raised-button color="primary" (click)="save()">Save</button>
     </div>
+    <mat-divider></mat-divider>
+    <div *ngFor="let itinerary of itineraries">
+      <mat-card>{{itinerary.name}}</mat-card>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-search-form (submitForm)="getWeatherData($event)"></app-search-form>

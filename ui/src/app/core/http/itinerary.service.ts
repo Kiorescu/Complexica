@@ -12,4 +12,8 @@ export class ItineraryService {
   save(itinerary) {
     return this.http.post(`${this.apiUrl}/itinerary`, itinerary);
   }
+
+  getAll() {
+    return this.http.get(`${this.apiUrl}/itinerary`);
+  }
 }

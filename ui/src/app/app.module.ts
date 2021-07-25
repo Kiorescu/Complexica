@@ -14,6 +14,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/materia
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule,
+    MatCardModule
   ],
   providers: [
     {provide: 'API_URL', useValue: 'http://localhost:8080'},

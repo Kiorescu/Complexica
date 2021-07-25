@@ -5,6 +5,8 @@ import com.complexica.test.repository.ItineraryRepository;
 import com.complexica.test.service.ItineraryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItineraryServiceImpl implements ItineraryService {
 
@@ -17,5 +19,10 @@ public class ItineraryServiceImpl implements ItineraryService {
     @Override
     public ItineraryEntity save(ItineraryEntity itinerary) {
         return repository.save(itinerary);
+    }
+
+    @Override
+    public List<ItineraryEntity> getAll() {
+        return repository.findAll();
     }
 }
