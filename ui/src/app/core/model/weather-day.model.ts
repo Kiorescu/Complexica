@@ -1,9 +1,9 @@
-import {City} from "./city.model";
-
 export class WeatherDay {
-  city: City;
-  date: Date;
+  id: number;
+  city: string;
+  countryCode: string;
   temperature: number;
   clouds: string;
   rain: number;
+  dt: number;
 }

@@ -1,16 +1,37 @@
-<table>
-  <tr>
-    <th>City</th>
-    <th>Country Code</th>
-    <th>Temperature</th>
-    <th>Clouds</th>
-    <th>Rain</th>
-  </tr>
-  <tr *ngFor="let weatherDay of weatherDays">
-    <td>{{weatherDay.city.name}}</td>
-    <td>{{weatherDay.city.country}}</td>
-    <td>{{weatherDay.temperature}}</td>
-    <td>{{weatherDay.clouds}}</td>
-    <td>{{weatherDay.rain}}</td>
-  </tr>
-</table>
+<div class="table-wrapper">
+  <table mat-table [dataSource]="weatherDays">
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- City Name Column -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef>City Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+    </ng-container>
+
+    <!-- Country Column -->
+    <ng-container matColumnDef="countryCode">
+      <th mat-header-cell *matHeaderCellDef>Country Code</th>
+      <td mat-cell *matCellDef="let element"> {{element.countryCode}} </td>
+    </ng-container>
+
+    <!-- Temperature Column -->
+    <ng-container matColumnDef="temperature">
+      <th mat-header-cell *matHeaderCellDef>Temperature</th>
+      <td mat-cell *matCellDef="let element"> {{element.temperature}} </td>
+    </ng-container>
+
+    <!-- Clouds Column -->
+    <ng-container matColumnDef="clouds">
+      <th mat-header-cell *matHeaderCellDef>Clouds</th>
+      <td mat-cell *matCellDef="let element"> {{element.clouds}} </td>
+    </ng-container>
+
+    <!-- Rain Column -->
+    <ng-container matColumnDef="rain">
+      <th mat-header-cell *matHeaderCellDef>Rain</th>
+      <td mat-cell *matCellDef="let element"> {{element.rain ? element.rain : '-'}} </td>
+    </ng-container>
+
+  </table>
+</div>

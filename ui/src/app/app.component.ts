@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {WeatherService} from "./core/service/weather.service";
+import {WeatherDataService} from "./core/http/weather-data.service";
 
 @Component({
   selector: 'app-root',
@@ -10,19 +10,23 @@ export class AppComponent implements OnInit{
   title = 'ui';
   weatherDays;
 
-  constructor(private weatherService: WeatherService) {
+  constructor(private weatherDataService: WeatherDataService) {
   }
 
   ngOnInit() {
-    this.weatherService.getWeatherDataObject().subscribe(data => {
-      this.weatherDays = data;
-    })
   }
 
   getWeatherData(data: any) {
     const cityName = data.value['cityName'];
     const date = new Date(data.value['date']);
 
-    this.weatherService.getWeatherByCityAndDate(cityName, date);
+    this.weatherDataService.getWeatherData(cityName).subscribe(result => {
+      if(!this.weatherDays) {
+        this.weatherDays = result;
+      } else {
+        result.forEach(i => this.weatherDays.push(i));
+        this.weatherDays = [].concat(this.weatherDays);
+      }
+    })
   }
 }
