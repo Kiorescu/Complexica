@@ -16,4 +16,8 @@ export class ItineraryService {
   getAll() {
     return this.http.get(`${this.apiUrl}/itinerary`);
   }
+
+  getById(id: number) {
+    return this.http.get(`${this.apiUrl}/itinerary/${id}`)
+  }
 }

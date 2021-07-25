@@ -25,4 +25,9 @@ public class ItineraryServiceImpl implements ItineraryService {
     public List<ItineraryEntity> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public ItineraryEntity getById(Long id) {
+        return repository.getOne(id);
+    }
 }

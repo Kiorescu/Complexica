@@ -9,4 +9,6 @@ public interface ItineraryService {
     ItineraryEntity save(ItineraryEntity itinerary);
 
     List<ItineraryEntity> getAll();
+
+    ItineraryEntity getById(Long id);
 }

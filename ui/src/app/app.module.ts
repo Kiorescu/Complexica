@@ -16,6 +16,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {MatCardModule} from "@angular/material/card";
     MatInputModule,
     MatSnackBarModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule,
+    MatSortModule
   ],
   providers: [
     {provide: 'API_URL', useValue: 'http://localhost:8080'},

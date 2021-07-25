@@ -1,5 +1,7 @@
 package com.complexica.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -73,5 +75,14 @@ public class WeatherDataEntity {
 
     public void setDt(Long date) {
         this.dt = date;
+    }
+
+    @JsonIgnore
+    public Set<ItineraryEntity> getItineraries() {
+        return itineraries;
+    }
+
+    public void setItineraries(Set<ItineraryEntity> itineraries) {
+        this.itineraries = itineraries;
     }
 }

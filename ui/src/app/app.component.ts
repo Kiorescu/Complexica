@@ -47,4 +47,10 @@ export class AppComponent implements OnInit{
     })
   }
 
+  load(id: number) {
+    this.itineraryService.getById(id).subscribe((result: any) => {
+      this.weatherDays = result.data;
+    })
+  }
+
 }

@@ -27,4 +27,9 @@ public class ItineraryController {
     public ResponseEntity<List<ItineraryEntity>> getAll() {
         return new ResponseEntity<>(itineraryService.getAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<ItineraryEntity> getById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(itineraryService.getById(id), HttpStatus.OK);
+    }
 }

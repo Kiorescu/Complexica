@@ -9,7 +9,12 @@
     </div>
     <mat-divider></mat-divider>
     <div *ngFor="let itinerary of itineraries">
-      <mat-card>{{itinerary.name}}</mat-card>
+      <mat-card>
+        {{itinerary.name}}
+        <button class="load-button" mat-mini-fab color="primary" (click)="load(itinerary.id)">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">get_app</mat-icon>
+        </button>
+      </mat-card>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
