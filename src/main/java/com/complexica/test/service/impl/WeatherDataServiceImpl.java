@@ -3,6 +3,7 @@ package com.complexica.test.service.impl;
 import com.complexica.test.model.WeatherDataEntity;
 import com.complexica.test.repository.WeatherRepository;
 import com.complexica.test.service.WeatherDataService;
+import com.complexica.test.service.util.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +37,8 @@ public class WeatherDataServiceImpl implements WeatherDataService {
     @Override
     public List<WeatherDataEntity> findAllByCityAndDate(String city, Long date){
 
+        LocalDateTime dateTime = ServiceUtil.milliToDateTime(date);
+
         List<WeatherDataEntity> cachedWeatherData = weatherRepository.findAllByCityAndDate(city, date);
         if(cachedWeatherData != null && !cachedWeatherData.isEmpty()) {
             return cachedWeatherData;
@@ -54,7 +59,15 @@ public class WeatherDataServiceImpl implements WeatherDataService {
         Map<String, Object> weatherData = (Map<String, Object>) response.getBody();
         if(weatherData != null) {
             List<WeatherDataEntity> weatherDataEntities = convertToEntity(weatherData);
-            weatherDataEntities = weatherDataEntities.stream().filter(e -> e.getDt().equals(date)).collect(Collectors.toList());
+            weatherDataEntities = weatherDataEntities.stream().filter(e -> {
+                LocalDateTime dt = ServiceUtil.secondsToDateTime(e.getDt());
+                return dateTime.getDayOfYear() == dt.getDayOfYear()
+                        && dateTime.getMonth().equals(dt.getMonth())
+                        && dateTime.getYear() == dt.getYear()
+                        && dt.getHour() >= 12
+                        && dt.getHour() <= 18;
+
+            }).collect(Collectors.toList());
             weatherRepository.saveAll(weatherDataEntities);
 
             return weatherDataEntities;

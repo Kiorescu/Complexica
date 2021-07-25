@@ -18,9 +18,10 @@ export class AppComponent implements OnInit{
 
   getWeatherData(data: any) {
     const cityName = data.value['cityName'];
-    const date = new Date(data.value['date']);
+    const date = new Date(data.value['date']).getTime();
+    console.log(date);
 
-    this.weatherDataService.getWeatherData(cityName).subscribe(result => {
+    this.weatherDataService.getWeatherData(cityName, date).subscribe(result => {
       if(!this.weatherDays) {
         this.weatherDays = result;
       } else {

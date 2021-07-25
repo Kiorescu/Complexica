@@ -8,6 +8,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTableModule} from "@angular/material/table";
+import {CoreModule} from "../core/core.module";
 
 
 
@@ -28,7 +29,8 @@ import {MatTableModule} from "@angular/material/table";
     MatInputModule,
     MatDatepickerModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    CoreModule
   ]
 })
 export class ComponentsModule { }

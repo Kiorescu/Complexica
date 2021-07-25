@@ -10,7 +10,7 @@ export class WeatherTableComponent implements OnInit{
 
   @Input()
   weatherDays: Array<WeatherDay> = new Array<WeatherDay>();
-  displayedColumns = ['city', 'countryCode', 'temperature', 'clouds', 'rain']
+  displayedColumns = ['city', 'countryCode', 'temperature', 'clouds', 'rain', 'time']
 
   constructor() { }
 

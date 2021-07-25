@@ -33,5 +33,11 @@
       <td mat-cell *matCellDef="let element"> {{element.rain ? element.rain : '-'}} </td>
     </ng-container>
 
+    <!-- time Column -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Time</th>
+      <td mat-cell *matCellDef="let element"> {{element.dt | secondsDate | date: 'short'}} </td>
+    </ng-container>
+
   </table>
 </div>
